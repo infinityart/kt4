@@ -1,5 +1,5 @@
 <?php
-include_once "classe/user.php";
+include_once "classes/user.php";
 $dataArray = array_map('str_getcsv', file('database/db.csv'));
 unset($dataArray[0]);
 var_dump($dataArray);

@@ -12,10 +12,14 @@
 class User
 {
     public $users = [];
-    public $firstName = "";
-    public $lastName = "";
-    public $mobile = "";
-    public $telNumber = "";
+
+    /**
+     * @var string
+     */
+    public $firstName;
+    public $lastName ;
+    public $mobile ;
+    public $telNumber;
 
     /**
      * @return string
