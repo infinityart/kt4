@@ -17,11 +17,11 @@ if( TRUE == $csvParser->checkIfFileExist($fileUri)){
         $user->save($dataValue);
         $users->save($dataKey, $user);
     }
-    var_dump();
+
     //TODO dubbele mobiel nummer check
-    $users->checkForDubble($users->getUserList());
+
     //TODO dubbele tel nummer check
-    $users->checkForDubble($users->getUserList());
+
 
 
 }
