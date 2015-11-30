@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46329407-3d3c-46e8-a417-731d014a3017" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="kt4.iws" />
@@ -213,7 +214,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448899422322</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary=".gitignore added">
+      <created>1448899440372</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1448899440372</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -247,7 +254,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="directory changed: from classe to classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="directory changed: from classe to classes" />
+    <MESSAGE value=".gitignore added" />
+    <option name="LAST_COMMIT_MESSAGE" value=".gitignore added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
