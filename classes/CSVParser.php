@@ -11,6 +11,10 @@
  */
 class CSVParser
 {
+    public function checkIfFileExist($file)
+    {
+        return file_exists($file);
+    }
 
     public function csvToArray($fileUri)
     {

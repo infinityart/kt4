@@ -1,22 +1,32 @@
 <?php
 include_once "classes/user.php";
 include_once "classes/CSVParser.php";
-
+include_once "classes/Users.php";
 
 $csvParser =  new CSVParser();
+$users = new Users();
 
 $fileUri = "database/db.csv";
 
-$dataArray = $csvParser->csvToArray($fileUri);
+if( TRUE == $csvParser->checkIfFileExist($fileUri)){
 
-foreach($dataArray as $dataKey => $dataValue){
-    $user =  new User();
-    $user->save($dataValue);
-    $user->insertIntoUserArray($user);
+    $dataArray = $csvParser->csvToArray($fileUri);
+
+    foreach($dataArray as $dataKey => $dataValue){
+        $user =  new User();
+        $user->save($dataValue);
+        $users->save($dataKey, $user);
+    }
+    var_dump();
+    //TODO dubbele mobiel nummer check
+    $users->checkForDubble($users->getUserList());
+    //TODO dubbele tel nummer check
+    $users->checkForDubble($users->getUserList());
+    
+
 }
 
 
-echo var_dump($user->users);
 
 // end of code
 die;

@@ -11,12 +11,17 @@
  */
 class User
 {
-    public $users = [];
+//    public $users;
 
     public $firstName;
     public $lastName ;
     public $mobile ;
     public $telNumber;
+
+//    public function __construct(Users $users)
+//    {
+//        $this->users = $users;
+//    }
 
     /**
      * @return string
@@ -106,13 +111,8 @@ class User
         $this->setTelNumber($dataValue[3]);
     }
 
-    public function insertIntoUserArray($user)
+    public function saveIntoUserlist($dataKey, $user)
     {
-        if(empty(array_keys($this->users))) {
-        $key = 0;
-    }
-        end($this->users);
-        $key = key($this->users) + 1;
-        $this->users[$key] = $user;
+
     }
 }
