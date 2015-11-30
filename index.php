@@ -1,15 +1,24 @@
 <?php
 include_once "classes/user.php";
-$dataArray = array_map('str_getcsv', file('database/db.csv'));
-unset($dataArray[0]);
-var_dump($dataArray);
-$user =  new User();
-$user->save($dataArray);
+include_once "classes/CSVParser.php";
 
 
-echo var_dump($user);
+$csvParser =  new CSVParser();
+
+$fileUri = "database/db.csv";
+
+$dataArray = $csvParser->csvToArray($fileUri);
+
+foreach($dataArray as $dataKey => $dataValue){
+    $user =  new User();
+    $user->save($dataValue);
+    $user->insertIntoUserArray($user);
+}
 
 
+echo var_dump($user->users);
+
+// end of code
 die;
 $error = [];
 $dataArray = array_map('str_getcsv', file('database/db.csv'));

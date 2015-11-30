@@ -13,9 +13,6 @@ class User
 {
     public $users = [];
 
-    /**
-     * @var string
-     */
     public $firstName;
     public $lastName ;
     public $mobile ;
@@ -101,16 +98,21 @@ class User
         $this->mobile = $mobile;
     }
 
-    public function save($dataArray)
+    public function save($dataValue)
     {
-        $i = 0;
-        foreach($dataArray as $key => $value){
-            $this->setFirstName($value[0]);
-            $this->setLastName($value[1]);
-            $this->setMobilthe($value[2]);
-            $this->setTelNumber($value[3]);
-            $i++;
-        }
+        $this->setFirstName($dataValue[0]);
+        $this->setLastName($dataValue[1]);
+        $this->setMobile($dataValue[2]);
+        $this->setTelNumber($dataValue[3]);
     }
 
+    public function insertIntoUserArray($user)
+    {
+        if(empty(array_keys($this->users))) {
+        $key = 0;
+    }
+        end($this->users);
+        $key = key($this->users) + 1;
+        $this->users[$key] = $user;
+    }
 }
