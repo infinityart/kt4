@@ -22,7 +22,7 @@ if( TRUE == $csvParser->checkIfFileExist($fileUri)){
     $users->checkForDubble($users->getUserList());
     //TODO dubbele tel nummer check
     $users->checkForDubble($users->getUserList());
-    
+
 
 }
 

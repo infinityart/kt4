@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46329407-3d3c-46e8-a417-731d014a3017" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/CSVParser.php" afterPath="$PROJECT_DIR$/classes/CSVParser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/db.csv" afterPath="$PROJECT_DIR$/database/db.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/user.php" afterPath="$PROJECT_DIR$/classes/user.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="kt4.iws" />
@@ -32,8 +29,8 @@
           <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.31023785">
-                  <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+                <state vertical-scroll-proportion="0.18097208">
+                  <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
                   <folding />
                 </state>
               </provider>
@@ -66,8 +63,8 @@
           <file leaf-file-name="Users.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/classes/Users.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.77559465">
-                  <caret line="30" column="44" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="44" />
+                <state vertical-scroll-proportion="0.49120992">
+                  <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -287,7 +284,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448902972042</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="csvparser.php, user.php, users.php updated">
+      <created>1448907283438</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1448907283438</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -324,7 +327,9 @@
     <MESSAGE value=".gitignore added" />
     <MESSAGE value=".gitignore changes" />
     <MESSAGE value="a lot of changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="a lot of changes" />
+    <MESSAGE value="a lot of changes again" />
+    <MESSAGE value="csvparser.php, user.php, users.php updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="csvparser.php, user.php, users.php updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -381,18 +386,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/Users.php">
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77559465">
-          <caret line="30" column="44" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.18097208">
+          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
+    <entry file="file://$PROJECT_DIR$/classes/Users.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31023785">
-          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.49120992">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
