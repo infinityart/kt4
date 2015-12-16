@@ -1,15 +1,16 @@
 <?php
-include_once "constant/constant.php";
-include_once "controllers/CSVParser.php";
-include_once "controllers/UserController.php";
-include_once "database/models/DbUser.php";
-include_once "controllers/Logger.php";
+include_once "Source/constant.php";
+include_once "Source/CSVParser.php";
+include_once "Source/Controllers/UserController.php";
+include_once "Source/Models/DbUser.php";
+include_once "Source/Models/Logger.php";
+include_once "Source/Database/Database.php";
 
 $csvParser =  new CSVParser();
 $logger =  new Logger();
 
-$fileUri = "database/db.csv";
-$loggerUri = "log/log";
+$fileUri = "db.csv";
+$loggerUri = "Log/Log";
 
 // functie maken die fout in bestand set write2errorfile(dataArray)
 // controler vast tel nummer toevoegen
@@ -32,7 +33,7 @@ if($csvParser->checkIfFileExist()){
             $num = count($data);
             // Zet regel op het scherm
             echo "<p> $num velden in lijn $row: <br /></p>\n";
-            $user = new UserController( new DbUser);
+            $user = new UserController( new DbUser( new Database()));
             $user->setFirstName($data[DATA_POS_FN]);
             $user->setLastName($data[DATA_POS_LN]);
             $user->setMobile($data[DATA_POS_MOB]);
@@ -101,7 +102,7 @@ if($csvParser->checkIfFileExist()){
 
 // 7. vervang 0 bij nummers met 0031
 
-// 8. zet in database
+// 8. zet in Models
 
 // 9. Fout gevonden? nee->herhaal vanaf stap 2, ja->stap 10
 

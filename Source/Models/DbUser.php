@@ -11,10 +11,17 @@
  */
 class DbUser
 {
-    public $firstName = "";
-    public $lastName = "";
-    public $mobile = "";
-    public $telephone = "";
+    public $firstName;
+    public $lastName;
+    public $mobile;
+    public $telephone;
+
+    public $db;
+
+    public function __construct(Database $db)
+    {
+        $this->db = $db;
+    }
 
     public function setFirstName($firstName)
     {

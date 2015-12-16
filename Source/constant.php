@@ -3,6 +3,12 @@
  * @author: Jonty Sponselee <jonty_wolf@hotmail.com>
  * @since: 12/14/2015
  */
+// User values
+define('DB_HOST', "localhost");
+define('DB_NAME', "kt4");
+define('DB_USERNAME',  "root");
+define('DB_PASSWORD', "");
+
 // Position in data array
 define('DATA_POS_FN', 0);
 define('DATA_POS_LN', 1);
