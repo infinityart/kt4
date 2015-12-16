@@ -11,5 +11,10 @@
  */
 class DbUser
 {
+    private $db;
 
+    public function __construct(db $db)
+    {
+        $this->db = $db;
+    }
 }
