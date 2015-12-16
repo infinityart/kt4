@@ -1,14 +1,12 @@
 <?php
 include_once "constant/constant.php";
-include_once "classes/CSVParser.php";
-include_once "classes/UserController.php";
-include_once "classes/user.php";
-include_once "classes/Error.php";
-include_once "classes/Logger.php";
+include_once "controllers/CSVParser.php";
+include_once "controllers/UserController.php";
+include_once "database/models/DbUser.php";
+include_once "controllers/Logger.php";
 
 $csvParser =  new CSVParser();
 $logger =  new Logger();
-$error = new Error();
 
 $fileUri = "database/db.csv";
 $loggerUri = "log/log";
@@ -21,20 +19,20 @@ $csvParser->setFileUri($fileUri);
 // Kijkt dat file bestaat
 if($csvParser->checkIfFileExist()){
     // Lees regel CSV bestand
-    $row = 1;
+    $row = 0;
     $dataArray = [];
     if (($csvParser->setHandle($csvParser->openFile("r"))) !== FALSE) {
         // Controleert of data is gevonden
 
         while (($data = $csvParser->lineCSV($csvParser->getHandle())) !== FALSE) {
-            if($row == 1){
+            if($row == 0){
                 $row++;
                 continue;
             }
             $num = count($data);
             // Zet regel op het scherm
             echo "<p> $num velden in lijn $row: <br /></p>\n";
-            $user = new UserController( new User);
+            $user = new UserController( new DbUser);
             $user->setFirstName($data[DATA_POS_FN]);
             $user->setLastName($data[DATA_POS_LN]);
             $user->setMobile($data[DATA_POS_MOB]);
@@ -52,9 +50,11 @@ if($csvParser->checkIfFileExist()){
                 // Als er een fout is schrijf naar foutbestand negeert het als het er al instaat
                 if($logger->checkInFile($loggerUri, $data) == false){
                     $logger->writeInFile($loggerUri, $data);
+                }else{
+                    echo "Deze row staat al in het foutbestand.<br />";
                 }
-                echo "Deze row bevat een fout.<br />";
-                echo "Deze row staat al in het foutbestand.";
+                echo "Deze row bevat een fout.";
+
                 continue;
             }
                 // check tel nummer
@@ -62,9 +62,11 @@ if($csvParser->checkIfFileExist()){
                 // Als er een fout is schrijf naar foutbestand negeert het als het er al instaat
                 if($logger->checkInFile($loggerUri, $data) == false){
                     $logger->writeInFile($loggerUri, $data);
+                }else{
+                    echo "Deze row staat al in het foutbestand.<br />";
                 }
-                echo "Deze row bevat een fout<br />";
-                echo "Deze row staat al in het foutbestand";
+                echo "Deze row bevat een fout.";
+
                 continue;
             }
             // Zet nationaal om naar internationaal van mobiel

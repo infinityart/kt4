@@ -9,53 +9,53 @@
  * @since: 14/12/2015
  * @version 0.1 14/12/2015 Initial class definition.
  */
-class userController
+class UserController
 {
-    private $User = null;
+    private $dbUser;
 
-    public function __construct(User $user)
+    public function __construct(DbUser $dbUser)
     {
-        $this->User = $user;
+        $this->dbUser = $dbUser;
     }
 
     public function setFirstName($firstName)
     {
-        $this->User->setFirstName($firstName);
+        $this->dbUser->setFirstName($firstName);
     }
 
     public function setLastName($lastName)
     {
-        $this->User->setLastName($lastName);
+        $this->dbUser->setLastName($lastName);
     }
 
     public function setMobile($mobile)
     {
-        $this->User->setMobile($mobile);
+        $this->dbUser->setMobile($mobile);
     }
 
     public function setTelephone($telephone)
     {
-        $this->User->setTelephone($telephone);
+        $this->dbUser->setTelephone($telephone);
     }
 
     public function getFirstName()
     {
-        return $this->User->getFirstName();
+        return $this->dbUser->getFirstName();
     }
 
     public function getLastName()
     {
-        return $this->User->getLastName();
+        return $this->dbUser->getLastName();
     }
 
     public function getMobile()
     {
-        return $this->User->getMobiel();
+        return $this->dbUser->getMobiel();
     }
 
     public function getTelephone()
     {
-        return $this->User->getTelephone();
+        return $this->dbUser->getTelephone();
     }
 
     public function userAsArray()
