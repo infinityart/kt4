@@ -45,6 +45,11 @@ class Logger
         return fclose($this->getHandle());
     }
 
+    public function lineFile()
+    {
+        return fgets($this->getHandle(), 1000);
+    }
+
     public function writeInFile($fileUri, $data)
     {
         $this->setFileUri($fileUri);
@@ -53,8 +58,29 @@ class Logger
         $this->closeFile();
     }
 
-    public function checkInFile($data)
+    public function checkInFile($fileUri, $data)
     {
-        
+     //   $foo =  file($fileUri);
+//var_dump($foo);
+
+        $this->setFileUri($fileUri);
+        $this->setHandle($this->openFile("r"));
+        if($this->getHandle()){
+            $match = 0;
+            while(($buffer = $this->lineFile()) !== false){
+                $buffer =  trim($buffer);
+                if($buffer === implode($data, ', ')){
+                    $match++;
+                }
+            }
+            if (!feof($this->getHandle())){
+                echo "Error: Onverwachte fget functie";
+            }
+            $this->closeFile();
+        }
+       if($match > 0){
+           return true;
+       }
+        return false;
     }
 }

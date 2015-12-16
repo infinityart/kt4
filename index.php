@@ -49,23 +49,29 @@ if($csvParser->checkIfFileExist()){
             // Check lengte en start met 0
                 // check mobile nummers
             if((strlen($data[DATA_POS_MOB]) != MOB_LENGTH) || (substr($data[DATA_POS_MOB], 0, 1) != "0")){
-                // Als er een fout is schrijf naar foutbestand
-                if(!$logger->checkInFile($data)){
+                // Als er een fout is schrijf naar foutbestand negeert het als het er al instaat
+                if($logger->checkInFile($loggerUri, $data) == false){
                     $logger->writeInFile($loggerUri, $data);
-                    echo "Deze row bevat een fout";
                 }
+                echo "Deze row bevat een fout.<br />";
+                echo "Deze row staat al in het foutbestand.";
                 continue;
             }
                 // check tel nummer
             if((strlen($data[DATA_POS_TEL]) != TEL_LENGTH) || (substr($data[DATA_POS_TEL], 0, 1) != "0")){
-                if(!$logger->checkInFile($data)){
+                // Als er een fout is schrijf naar foutbestand negeert het als het er al instaat
+                if($logger->checkInFile($loggerUri, $data) == false){
                     $logger->writeInFile($loggerUri, $data);
-                    echo "Deze row bevat een fout";
                 }
+                echo "Deze row bevat een fout<br />";
+                echo "Deze row staat al in het foutbestand";
                 continue;
             }
-            // Zet nationaal om naar internationaal
+            // Zet nationaal om naar internationaal van mobiel
             $data[DATA_POS_MOB] = str_replace("0", "0031", $data[DATA_POS_MOB]);
+            // Zet nationaal om naar internationaal van mobiel
+            $data[DATA_POS_TEL] = str_replace("0", "0031", $data[DATA_POS_TEL]);
+            var_dump($data);
 
             // Zet in DB
                 // Controleert op dubbele informatie
@@ -79,36 +85,6 @@ if($csvParser->checkIfFileExist()){
 }else{
     echo "No data found in file!";
 }
-
-
-//if($csvParser->checkIfFileExist($fileUri)){
-//
-//    $dataArray = $csvParser->csvToArray($fileUri);
-//
-//    foreach($dataArray as $dataKey => $dataValue){
-//        $user =  new User();
-//        $error = false;
-//        $user->setFirstName($dataValue[0]);
-//        $user->setLastName($dataValue[1]);
-//        $user->setMobile($dataValue[2]);
-//        $user->setTelNumber($dataValue[3]);
-//
-//        echo  $user->g
-//        var_dump($user);
-//        if(!$mobileModified = $validator->mobileValidator($user->getMobile())){
-//          $error = true;
-//        }
-//        $user->setMobile($mobileModified);
-//       var_dump($user);
-//    }
-//    var_dump($users->userList);
-//}else {
-//
-//}
-
-
-
-
 
 
 // 2. Lees(volgende) regel van CSV
