@@ -9,6 +9,7 @@
  * @since: 14/12/2015
  * @version 0.1 14/12/2015 Initial class definition.
  */
+
 class Logger
 {
     public $fileUri;
@@ -36,11 +37,24 @@ class Logger
 
     public function openFile($mode)
     {
-        return fopen($this->getHandle(), $mode);
+        return fopen($this->getFileUri(), $mode);
     }
 
     public function closeFile()
     {
         return fclose($this->getHandle());
+    }
+
+    public function writeInFile($fileUri, $data)
+    {
+        $this->setFileUri($fileUri);
+        $this->setHandle($this->openFile("a"));
+        fwrite($this->getHandle(), implode($data, ', ') . "\n");
+        $this->closeFile();
+    }
+
+    public function checkInFile($data)
+    {
+        
     }
 }

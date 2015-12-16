@@ -11,5 +11,10 @@
  */
 class Error
 {
+    public function __construct()
+    {
+        if(APP_DEBUG){
 
+        }
+    }
 }

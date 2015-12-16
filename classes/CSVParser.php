@@ -11,15 +11,48 @@
  */
 class CSVParser
 {
-    public function checkIfFileExist($file)
+    public $fileUri =  "";
+    public $handle;
+
+    public function setFileUri($fileUri)
     {
-        return file_exists($file);
+       $this->fileUri = $fileUri;
     }
 
-    public function csvToArray($fileUri)
+    public function getFileUri()
     {
-        $dataArray = array_map('str_getcsv', file($fileUri));
-        unset($dataArray[0]);
-        return $dataArray;
+        return $this->fileUri;
     }
+
+    public function setHandle($handle)
+    {
+        $this->handle =  $handle;
+    }
+
+    public function getHandle()
+    {
+        return $this->handle;
+    }
+
+    public function checkIfFileExist()
+    {
+        return file_exists($this->getFileUri());
+    }
+
+    public function openFile($mode)
+    {
+        return fopen($this->getFileUri(), $mode);
+    }
+
+    public function lineCSV()
+    {
+       return fgetcsv($this->getHandle(), 1000, ",");
+    }
+
+    public function closeFile()
+    {
+        return fclose($this->getHandle());
+    }
+
+
 }

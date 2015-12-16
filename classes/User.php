@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class User.php
+ * Class user.php
  *
  * Class documentation
  *
@@ -11,5 +11,48 @@
  */
 class User
 {
+    public $firstName = "";
+    public $lastName = "";
+    public $mobile = "";
+    public $telephone = "";
 
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function setLastName($lastName)
+    {
+        $this->lastName =  $lastName;
+    }
+
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
+    }
+
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    public function getMobiel()
+    {
+        return $this->mobile;
+    }
+
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
 }

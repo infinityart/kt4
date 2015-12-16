@@ -1,72 +1,132 @@
 <?php
-include_once "classes/user.php";
+include_once "constant/constant.php";
 include_once "classes/CSVParser.php";
-include_once "classes/Users.php";
+include_once "classes/UserController.php";
+include_once "classes/user.php";
+include_once "classes/Error.php";
+include_once "classes/Logger.php";
 
 $csvParser =  new CSVParser();
-$users = new Users();
+$logger =  new Logger();
+$error = new Error();
 
 $fileUri = "database/db.csv";
+$loggerUri = "log/log";
 
-if( TRUE == $csvParser->checkIfFileExist($fileUri)){
+// functie maken die fout in bestand set write2errorfile(dataArray)
+// controler vast tel nummer toevoegen
 
-    $dataArray = $csvParser->csvToArray($fileUri);
+$csvParser->setFileUri($fileUri);
 
-    foreach($dataArray as $dataKey => $dataValue){
-        $user =  new User();
-        $user->save($dataValue);
-        $users->save($dataKey, $user);
+// Kijkt dat file bestaat
+if($csvParser->checkIfFileExist()){
+    // Lees regel CSV bestand
+    $row = 1;
+    $dataArray = [];
+    if (($csvParser->setHandle($csvParser->openFile("r"))) !== FALSE) {
+        // Controleert of data is gevonden
+
+        while (($data = $csvParser->lineCSV($csvParser->getHandle())) !== FALSE) {
+            if($row == 1){
+                $row++;
+                continue;
+            }
+            $num = count($data);
+            // Zet regel op het scherm
+            echo "<p> $num velden in lijn $row: <br /></p>\n";
+            $user = new UserController( new User);
+            $user->setFirstName($data[DATA_POS_FN]);
+            $user->setLastName($data[DATA_POS_LN]);
+            $user->setMobile($data[DATA_POS_MOB]);
+            $user->setTelephone($data[DATA_POS_TEL]);
+
+            echo $user->getFirstName()."<br/>";
+            echo $user->getLastName()."<br/>";
+            echo $user->getMobile()."<br/>";
+            echo $user->getTelephone()."<br/>";
+
+
+            // Check lengte en start met 0
+                // check mobile nummers
+            if((strlen($data[DATA_POS_MOB]) != MOB_LENGTH) || (substr($data[DATA_POS_MOB], 0, 1) != "0")){
+                // Als er een fout is schrijf naar foutbestand
+                if(!$logger->checkInFile($data)){
+                    $logger->writeInFile($loggerUri, $data);
+                    echo "Deze row bevat een fout";
+                }
+                continue;
+            }
+                // check tel nummer
+            if((strlen($data[DATA_POS_TEL]) != TEL_LENGTH) || (substr($data[DATA_POS_TEL], 0, 1) != "0")){
+                if(!$logger->checkInFile($data)){
+                    $logger->writeInFile($loggerUri, $data);
+                    echo "Deze row bevat een fout";
+                }
+                continue;
+            }
+            // Zet nationaal om naar internationaal
+            $data[DATA_POS_MOB] = str_replace("0", "0031", $data[DATA_POS_MOB]);
+
+            // Zet in DB
+                // Controleert op dubbele informatie
+                // Als fout gevonden dan naar foutbestand
+            // Controleert op data correcct is
+            // zet in fout bestand
+            $row++;
+        }
+        $csvParser->closeFile($csvParser->getHandle());
     }
-
-    //TODO dubbele mobiel nummer check
-
-    //TODO dubbele tel nummer check
-
-
-
+}else{
+    echo "No data found in file!";
 }
 
 
-
-// end of code
-die;
-$error = [];
-$dataArray = array_map('str_getcsv', file('database/db.csv'));
-unset($dataArray[0]);
-$i = 0;
-var_dump($dataArray);
-echo "<hr>";
-foreach($dataArray as $dataKey => $dataValue){
-    $search = $dataValue[2];
-    unset($dataArray[$dataKey]);
-    $pls = in_array($search, $dataValue);
-var_dump($pls);
-
-
-
-    if(strlen($dataValue[2]) !== 10){
-        $mobileValue = $dataValue[2];
-        $error[$i]["mobiel"] = $mobileValue;
-        $i++;
-    }
-    $replace = str_replace("06", "00316", $dataValue[2]);
-    $gg = array_replace($dataValue,[2 => $replace]);
-}
-//var_dump($error);
-
-//var_dump($dataArray);
-// De file inlezen
-
-// Elke regel 1 voor 1 lezen
+//if($csvParser->checkIfFileExist($fileUri)){
+//
+//    $dataArray = $csvParser->csvToArray($fileUri);
+//
+//    foreach($dataArray as $dataKey => $dataValue){
+//        $user =  new User();
+//        $error = false;
+//        $user->setFirstName($dataValue[0]);
+//        $user->setLastName($dataValue[1]);
+//        $user->setMobile($dataValue[2]);
+//        $user->setTelNumber($dataValue[3]);
+//
+//        echo  $user->g
+//        var_dump($user);
+//        if(!$mobileModified = $validator->mobileValidator($user->getMobile())){
+//          $error = true;
+//        }
+//        $user->setMobile($mobileModified);
+//       var_dump($user);
+//    }
+//    var_dump($users->userList);
+//}else {
+//
+//}
 
 
-//TODO input nakijken
 
-    //TODO geen dubbel ganger
 
-    //  mobiel moet 10 cijfers bevatten & 00316 bij zetten
 
-    //TODO vaste nummer 011 vervangen door 003111
 
-    //TODO de fouten(dubbel gangers,..) in bestand zetten
+// 2. Lees(volgende) regel van CSV
+
+// 3. Data gevonden ja->ga door, nee-> zet info op scherm
+
+// 4. Zet regel op scherm
+
+// 5. Check de lengte met van telefoon nummers en dat ze beginnen met 0
+
+// 6. Data correct ja->ga door, nee->zet in error bestand->herhaal vanaf stap 2
+
+// 7. vervang 0 bij nummers met 0031
+
+// 8. zet in database
+
+// 9. Fout gevonden? nee->herhaal vanaf stap 2, ja->stap 10
+
+// 10. Dubbele gegevens?nee->zet in error bestand->herhaal vanaf stap 2, ja->herhaal vanaf stap 2
+
 
