@@ -9,55 +9,43 @@
  * @since: 16/12/2015
  * @version 0.1 16/12/2015 Initial class definition.
  */
+
+//TODO SEquentie diagram maken
+
+
 class Database
 {
-    private $host = DB_HOST;
-    private $name = DB_NAME;
-    private $username = DB_USERNAME;
-    private $password = DB_PASSWORD;
-
+    /**
+     * @var $connection mysqli|object
+     */
     private $connection;
+    /**
+     * @var $queryResult string
+     */
     private $queryResult;
 
+    /**
+     * Database constructor.
+     * @param $host
+     * @param $name
+     * @param $username
+     * @param $password
+     */
     public function __construct($host, $name, $username, $password)
     {
         $this->connect($host, $name, $username, $password);
     }
 
     /**
-     * @return string
+     * @param $host
+     * @param $name
+     * @param $username
+     * @param $password
+     * @return mysqli|object
      */
-    private function getHost()
-    {
-        return $this->host;
-    }
-
-    /**
-     * @return string
-     */
-    private function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    private function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @return string
-     */
-    private function getPassword()
-    {
-        return $this->password;
-    }
-
     private function connect($host, $name, $username, $password)
     {
+        // Test Table array
         $tables = [
             'user' => [
                 'id' => "INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY",
@@ -72,10 +60,9 @@ class Database
 
         if($this->connection === null) {
             try{
-                //$this->connection = new mysqli($this->getHost(), $this->getUsername(), $this->getPassword());
                 $this->connection =  new mysqli($host, $username, $password);
                 $this->createDatabase();
-                $this->connection->select_db( $name );
+                $this->connection->select_db($name);
                 $this->createTables($tables);
             }catch(Exception $e){
                 die($e->getMessage());
@@ -84,25 +71,32 @@ class Database
         return $this->connection;
     }
 
+    /**
+     * @return bool
+     */
     private function createDatabase()
     {
-        $sql = "CREATE DATABASE " . $this->getName();
-        if($this->connection->query($sql) === true){
+        $query = "CREATE DATABASE IF NOT EXIST" . DB_NAME;
+        if($this->connection->query($query) === true){
+            // Database Created
             return true;
         }else{
+            // Database Already exist
             return false;
         }
     }
 
     private function createTables($tables){
         foreach($tables as $tableKey => $table){
-            $sql = "CREATE TABLE IF NOT EXISTS " . "`" .  $tableKey . "`" . " (";
+            $query = "CREATE TABLE IF NOT EXISTS " . "`" .  $tableKey . "`" . " (";
             foreach($table as $column => $columnType){
-                $sql .= "`" .$column . "`" ." " . $columnType;
-                //TODO voeg "," tussen elke colum behalve de laatste
+                $query .= "`" .$column . "`" ." " . $columnType . ", ";
             }
-            $sql .= ")";
-            var_dump($sql);
+
+            $query = substr($query, 0, strlen($query) - 2);
+            $query .= ")";
+
+            var_dump($query);
         }
     }
 
