@@ -16,12 +16,12 @@ class Database
     private $username = DB_USERNAME;
     private $password = DB_PASSWORD;
 
-    private $connect;
+    private $connection;
     private $queryResult;
 
-    public function __construct()
+    public function __construct($host, $name, $username, $password)
     {
-        $this->connect();
+        $this->connect($host, $name, $username, $password);
     }
 
     /**
@@ -56,7 +56,7 @@ class Database
         return $this->password;
     }
 
-    private function connect()
+    private function connect($host, $name, $username, $password)
     {
         $tables = [
             'user' => [
@@ -70,23 +70,24 @@ class Database
         ];
 
 
-        if($this->connect === null) {
+        if($this->connection === null) {
             try{
-                $this->connect = new mysqli($this->getHost(), $this->getUsername(), $this->getPassword());
+                //$this->connection = new mysqli($this->getHost(), $this->getUsername(), $this->getPassword());
+                $this->connection =  new mysqli($host, $username, $password);
                 $this->createDatabase();
-                $this->connect->select_db($this->getName());
+                $this->connection->select_db( $name );
                 $this->createTables($tables);
             }catch(Exception $e){
                 die($e->getMessage());
             }
         }
-        return $this->connect;
+        return $this->connection;
     }
 
     private function createDatabase()
     {
         $sql = "CREATE DATABASE " . $this->getName();
-        if($this->connect->query($sql) === true){
+        if($this->connection->query($sql) === true){
             return true;
         }else{
             return false;
@@ -107,7 +108,7 @@ class Database
 
     private function disconnect()
     {
-        $this->connect = null;
+        $this->connection = null;
     }
 
     public function __destruct()

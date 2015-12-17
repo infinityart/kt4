@@ -11,10 +11,12 @@
  */
 class DatabaseFactory
 {
-    static public $connection;
+    private static $database;
 
-    static public function getConnection()
-    {
-       // self::$connection = DB_HOST, DB_USERNAME, DB_PASSWORD;
+    public static function getDatabase(){
+        if(!self::$database){
+            self::$database = new Database(DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD);
+        }
+        return self::$database;
     }
 }

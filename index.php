@@ -5,6 +5,7 @@ include_once "Source/Controllers/UserController.php";
 include_once "Source/Models/DbUser.php";
 include_once "Source/Models/Logger.php";
 include_once "Source/Database/Database.php";
+include_once "Source/Factories/DatabaseFactory.php";
 
 $csvParser =  new CSVParser();
 $logger =  new Logger();
@@ -33,7 +34,8 @@ if($csvParser->checkIfFileExist()){
             $num = count($data);
             // Zet regel op het scherm
             echo "<p> $num velden in lijn $row: <br /></p>\n";
-            $user = new UserController( new DbUser( new Database()));
+            $database = DatabaseFactory::getDatabase();
+            $user = new UserController( new DbUser( $database ) );
             $user->setFirstName($data[DATA_POS_FN]);
             $user->setLastName($data[DATA_POS_LN]);
             $user->setMobile($data[DATA_POS_MOB]);
